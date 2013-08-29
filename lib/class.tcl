@@ -9,7 +9,7 @@ oo::class create ext::class {
     constructor { args } {
         # First, create the MetaClass.
         #
-        # This ensures that e.g. the ::oo::define::classmethod
+        # This ensures that e.g. the ::oo::define::meta
         # works correctly when called inside the definition
         # block of a class.
         oo::class create [self].Meta
