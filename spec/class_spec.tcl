@@ -35,6 +35,12 @@ describe "ext::class" {
         expect [SubClass defined_on_meta] to equal "meta"
     }
 
+    specify "subclasses do not inherit self methods" {
+        expect {
+            Subclass defined_on_self
+        } to raise_error
+    }
+
     specify "each class is an instance of its metaclass" {
         expect [info object class TestClass] to equal "::TestClass.Meta"
         expect [info object class SubClass] to equal "::SubClass.Meta"
@@ -46,5 +52,9 @@ describe "ext::class" {
 
     specify "the metaclass contains all superclass metaclasses" {
         expect [info class superclass [info object class MultipleSuperClasses]] to equal [list "::SubClass.Meta" "::OtherTestClass.Meta" "::oo::class"]
+    }
+
+    specify "instances are refcountable" {
+        expect "::ReferenceCountable" to be in [info class superclass MultipleSuperClasses]
     }
 }
