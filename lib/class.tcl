@@ -1,3 +1,4 @@
+package require "TclOO"
 package require "TclOO::ext::reference_countable" "1.0"
 
 package provide "TclOO::ext::class" "1.0"
