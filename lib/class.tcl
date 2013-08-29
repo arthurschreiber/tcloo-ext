@@ -30,11 +30,7 @@ oo::class create ext::class {
             }
         }
 
-        if { "::oo::class" ni $superclasses } {
-            lappend superclasses "::oo::class"
-        }
-
-        oo::define [self].Meta superclass {*}$superclasses
+        oo::define [self].Meta superclass {*}$superclasses "::oo::class"
 
         # Finally, change our new class to be an instance of our MetaClass.
         # This will set up the inheritance chain and make everything work
