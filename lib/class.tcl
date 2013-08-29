@@ -23,13 +23,18 @@ oo::class create ext::class {
         # Now, collect a list of superclasses and get their MetaClasses
         # (if they exist). Take this list of MetaClasses and set them as
         # superclasses of our MetaClass.
-        set superclasses [list "::oo::class"]
+        set superclasses [list]
         foreach class [info class superclasses [self]] {
             if { [info object isa object "${class}.Meta"] && [info object isa class "${class}.Meta"] } {
                 lappend superclasses "${class}.Meta"
             }
         }
-        oo::define [self].Meta superclass {*}[lreverse $superclasses]
+
+        if { "::oo::class" ni $superclasses } {
+            lappend superclasses "::oo::class"
+        }
+
+        oo::define [self].Meta superclass {*}$superclasses
 
         # Finally, change our new class to be an instance of our MetaClass.
         # This will set up the inheritance chain and make everything work
